@@ -5,6 +5,7 @@ import com.deadsimple.rpg.model.User;
 import com.deadsimple.rpg.repository.GameStateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,8 +19,7 @@ public class MainPageController {
 
     @RequestMapping("/")
     @ResponseBody
-    public GameState mainPage(Principal principal) {
-        User token = (User)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
-        return token.getGameState();
+    public GameState mainPage(@AuthenticationPrincipal User user) {
+        return user.getGameState();
     }
 }

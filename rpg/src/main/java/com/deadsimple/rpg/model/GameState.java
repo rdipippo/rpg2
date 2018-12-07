@@ -1,11 +1,14 @@
 package com.deadsimple.rpg.model;
 
+import com.deadsimple.rpg.model.embedded.Message;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class GameState implements Serializable {
@@ -20,6 +23,10 @@ public class GameState implements Serializable {
 
     int defense;
 
+    int turns;
+
+    List<Message> messages;
+
     @DBRef
     PlayerClass playerClass;
 
@@ -30,6 +37,8 @@ public class GameState implements Serializable {
         newGS.setHealth(10);
         newGS.setAttack(10);
         newGS.setDefense(10);
+        newGS.setTurns(40);
+
         return newGS;
     }
 
@@ -79,5 +88,30 @@ public class GameState implements Serializable {
 
     public void setDefense(int defense) {
         this.defense = defense;
+    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    @Transient
+    public void addMessage(Message message) {
+        if (this.messages == null) {
+            messages = new ArrayList<Message>();
+        }
+
+        messages.add(message);
     }
 }
