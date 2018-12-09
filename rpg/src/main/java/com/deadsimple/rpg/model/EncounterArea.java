@@ -1,7 +1,10 @@
 package com.deadsimple.rpg.model;
 
+import com.deadsimple.rpg.util.RandomRange;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document
 public class EncounterArea {
@@ -13,6 +16,8 @@ public class EncounterArea {
     String name;
 
     String gameName;
+
+    List<Encounter> encounters;
 
     public EncounterArea() {
     }
@@ -47,5 +52,18 @@ public class EncounterArea {
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
+    }
+
+    public List<Encounter> getEncounters() {
+        return encounters;
+    }
+
+    public void setEncounters(List<Encounter> encounters) {
+        this.encounters = encounters;
+    }
+
+    public Encounter selectEncounter() {
+        int encounterIndex = RandomRange.generate(0, encounters.size() - 1);
+        return encounters.get(encounterIndex);
     }
 }

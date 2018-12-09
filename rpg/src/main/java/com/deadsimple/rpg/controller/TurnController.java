@@ -1,5 +1,6 @@
 package com.deadsimple.rpg.controller;
 
+import com.deadsimple.rpg.model.Encounter;
 import com.deadsimple.rpg.model.EncounterArea;
 import com.deadsimple.rpg.model.GameState;
 import com.deadsimple.rpg.model.User;
@@ -29,7 +30,13 @@ public class TurnController {
 
         if (gs.getTurns() - area.getTurnCost() <= 0) {
             gs.addMessage(new Message("You don't have enough turns to adventure here", MessageType.BadNews));
+            return gs;
         }
+
+        Encounter encounter = area.selectEncounter();
+        gs  = encounter.run(gs);
+
+        gs.setTurns(gs.getTurns() - area.getTurnCost());
 
         return gs;
     }

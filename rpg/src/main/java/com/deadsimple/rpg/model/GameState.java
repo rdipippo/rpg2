@@ -1,6 +1,7 @@
 package com.deadsimple.rpg.model;
 
 import com.deadsimple.rpg.model.embedded.Message;
+import com.mongodb.BasicDBObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -24,6 +25,8 @@ public class GameState implements Serializable {
     int defense;
 
     int turns;
+
+    BasicDBObject inventory;
 
     List<Message> messages;
 
@@ -104,6 +107,14 @@ public class GameState implements Serializable {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public BasicDBObject getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(BasicDBObject inventory) {
+        this.inventory = inventory;
     }
 
     @Transient
