@@ -34,10 +34,18 @@ public class TurnController {
         }
 
         Encounter encounter = area.selectEncounter();
+        gs.setCurrentEncounter(encounter);
         gs  = encounter.run(gs);
 
         gs.setTurns(gs.getTurns() - area.getTurnCost());
 
         return gs;
+    }
+
+    @RequestMapping("/continueTurn")
+    @ResponseBody
+    public GameState continueTurn(@AuthenticationPrincipal User user) {
+        GameState gs = user.getGameState();
+        return gs.getCurrentEncounter().processPlayerAction(user.getGameState());
     }
 }

@@ -20,7 +20,7 @@ public class GameState implements Serializable {
 
     int health;
 
-    int attack;
+    public GameField attack;
 
     int defense;
 
@@ -28,17 +28,22 @@ public class GameState implements Serializable {
 
     BasicDBObject inventory;
 
-    List<Message> messages;
+    List<Message> messages = new ArrayList<>();
 
     @DBRef
     PlayerClass playerClass;
+
+    @DBRef
+    Encounter currentEncounter;
+
+    PlayerAction currentAction;
 
     @Transient
     public static GameState initNewPlayer() {
         GameState newGS = new GameState();
         newGS.setLevel(1);
         newGS.setHealth(10);
-        newGS.setAttack(10);
+        newGS.setAttack(new GameField(10));
         newGS.setDefense(10);
         newGS.setTurns(40);
 
@@ -61,6 +66,22 @@ public class GameState implements Serializable {
         this.playerClass = playerClass;
     }
 
+    public Encounter getCurrentEncounter() {
+        return currentEncounter;
+    }
+
+    public void setCurrentEncounter(Encounter currentEncounter) {
+        this.currentEncounter = currentEncounter;
+    }
+
+    public PlayerAction getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(PlayerAction currentAction) {
+        this.currentAction = currentAction;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -77,11 +98,11 @@ public class GameState implements Serializable {
         this.health = health;
     }
 
-    public int getAttack() {
+    public GameField getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public void setAttack(GameField attack) {
         this.attack = attack;
     }
 

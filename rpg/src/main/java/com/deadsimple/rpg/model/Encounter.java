@@ -3,12 +3,18 @@ package com.deadsimple.rpg.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document
 public abstract class Encounter {
     @Id
     String id;
 
     String name;
+
+    String openingText;
+
+    List<PlayerAction> actions;
 
     public Encounter() {
     }
@@ -29,5 +35,23 @@ public abstract class Encounter {
         this.name = name;
     }
 
+    public String getOpeningText() {
+        return openingText;
+    }
+
+    public void setOpeningText(String openingText) {
+        this.openingText = openingText;
+    }
+
+    public List<PlayerAction> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<PlayerAction> actions) {
+        this.actions = actions;
+    }
+
     public abstract GameState run(GameState gs);
+
+    public abstract GameState processPlayerAction(GameState gs);
 }

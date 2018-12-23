@@ -1,8 +1,8 @@
 package com.deadsimple.rpg;
 
-import com.deadsimple.rpg.model.EncounterArea;
-import com.deadsimple.rpg.model.GameState;
-import com.deadsimple.rpg.model.User;
+import com.deadsimple.rpg.encounters.DummyTestEncounter;
+import com.deadsimple.rpg.model.*;
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +47,20 @@ public abstract class BaseTest {
         user.setGameState(gs);
         template.save(user);
 
+        DummyTestEncounter bte = new DummyTestEncounter();
+        bte.setOpeningText("You are in a maze of twisty passages, all alike.");
+        PlayerAction runAway = new PlayerAction();
+        runAway.setName("Run Away");
+        PlayerAction pressOn = new PlayerAction();
+        pressOn.setName("Press on");
+        bte.setActions(Lists.newArrayList(runAway, pressOn));
+        template.save(bte);
+
         ea = new EncounterArea();
         ea.setName("Dungeon of Infinite Testing");
         ea.setTurnCost(1);
         ea.setGameName(DEFAULT_TEST_ADVENTURE_AREA);
+        ea.setEncounters(Lists.newArrayList(bte));
         template.save(ea);
     }
 }
