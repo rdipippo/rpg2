@@ -47,6 +47,7 @@ public abstract class BaseTest {
         user.setGameState(gs);
         template.save(user);
 
+        // TODO each test should be able to setup its own encounter
         DummyTestEncounter bte = new DummyTestEncounter();
         bte.setOpeningText("You are in a maze of twisty passages, all alike.");
         PlayerAction runAway = new PlayerAction();

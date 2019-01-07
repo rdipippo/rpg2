@@ -4,15 +4,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Opponent {
+public class Opponent implements Combatant {
     @Id
     String id;
 
-    int attack;
+    GameField attack;
 
-    int defense;
+    GameField defense;
 
-    int health;
+    GameField health;
+
+    String name;
 
     public Opponent() {
 
@@ -26,27 +28,35 @@ public class Opponent {
         this.id = id;
     }
 
-    public int getAttack() {
+    public GameField getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public void setAttack(GameField attack) {
         this.attack = attack;
     }
 
-    public int getDefense() {
+    public GameField getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
+    public void setDefense(GameField defense) {
         this.defense = defense;
     }
 
-    public int getHealth() {
+    public GameField getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(GameField health) {
         this.health = health;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

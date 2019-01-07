@@ -11,6 +11,11 @@ public class DummyTestEncounter extends Encounter {
     }
 
     @Override
+    public GameState nextStage(GameState gs) {
+        return null;
+    }
+
+    @Override
     public GameState processPlayerAction(GameState gs) {
         return gs;
     }

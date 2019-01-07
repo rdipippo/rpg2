@@ -53,5 +53,7 @@ public abstract class Encounter {
 
     public abstract GameState run(GameState gs);
 
+    public abstract GameState nextStage(GameState gs);
+
     public abstract GameState processPlayerAction(GameState gs);
 }

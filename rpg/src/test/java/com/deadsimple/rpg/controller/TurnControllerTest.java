@@ -35,4 +35,9 @@ public class TurnControllerTest extends BaseTest {
             System.out.println(action.getName());
         }
     }
+
+    @Test
+    public void combatEncounter() {
+        GameState newGameState = controller.takeTurn(getUser(), DEFAULT_TEST_ADVENTURE_AREA);
+    }
 }

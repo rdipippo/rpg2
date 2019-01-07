@@ -1,6 +1,7 @@
 package com.deadsimple.rpg.model;
 
 import com.deadsimple.rpg.model.embedded.Message;
+import com.deadsimple.rpg.repository.OpponentRepository;
 import com.mongodb.BasicDBObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -12,17 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document
-public class GameState implements Serializable {
+public class GameState implements Serializable, Combatant {
     @Id
     String id;
 
     int level;
 
-    int health;
+    GameField health;
 
-    public GameField attack;
+    GameField attack;
 
-    int defense;
+    GameField defense;
 
     int turns;
 
@@ -42,9 +43,9 @@ public class GameState implements Serializable {
     public static GameState initNewPlayer() {
         GameState newGS = new GameState();
         newGS.setLevel(1);
-        newGS.setHealth(10);
+        newGS.setHealth(new GameField(10));
         newGS.setAttack(new GameField(10));
-        newGS.setDefense(10);
+        newGS.setDefense(new GameField(10));
         newGS.setTurns(40);
 
         return newGS;
@@ -90,11 +91,11 @@ public class GameState implements Serializable {
         this.level = level;
     }
 
-    public int getHealth() {
+    public GameField getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(GameField health) {
         this.health = health;
     }
 
@@ -106,11 +107,11 @@ public class GameState implements Serializable {
         this.attack = attack;
     }
 
-    public int getDefense() {
+    public GameField getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
+    public void setDefense(GameField defense) {
         this.defense = defense;
     }
 
