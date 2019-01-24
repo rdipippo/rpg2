@@ -6,7 +6,10 @@ public class RandomRange {
     static Random rnd = new Random();
 
     public static int generate(int lowBound, int highBound) {
-        return rnd.nextInt(lowBound + 1) + highBound;
+        if (lowBound == highBound) {
+            return lowBound;
+        }
+        return rnd.nextInt(highBound - lowBound) + lowBound;
     }
 
     public static boolean trueOrFalse() {

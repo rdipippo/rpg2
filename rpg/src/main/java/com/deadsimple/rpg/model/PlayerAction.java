@@ -5,6 +5,10 @@ public class PlayerAction {
 
     Cost cost;
 
+    public PlayerAction(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

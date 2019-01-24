@@ -46,14 +46,14 @@ public abstract class BaseTest {
         user.setEnabled(true);
         user.setGameState(gs);
         template.save(user);
+    }
 
-        // TODO each test should be able to setup its own encounter
+    protected void setupDummyEncounter() {
         DummyTestEncounter bte = new DummyTestEncounter();
         bte.setOpeningText("You are in a maze of twisty passages, all alike.");
-        PlayerAction runAway = new PlayerAction();
-        runAway.setName("Run Away");
-        PlayerAction pressOn = new PlayerAction();
-        pressOn.setName("Press on");
+        PlayerAction runAway = new PlayerAction("Run Away");
+        PlayerAction pressOn = new PlayerAction("Press on");
+
         bte.setActions(Lists.newArrayList(runAway, pressOn));
         template.save(bte);
 
@@ -62,6 +62,30 @@ public abstract class BaseTest {
         ea.setTurnCost(1);
         ea.setGameName(DEFAULT_TEST_ADVENTURE_AREA);
         ea.setEncounters(Lists.newArrayList(bte));
+        template.save(ea);
+    }
+
+    protected void setupCombatEncounter() {
+        Opponent orc = new Opponent();
+        orc.setAttack(new GameField(12));
+        orc.setDefense(new GameField(12));
+        orc.setHealth(new GameField(15));
+        orc.setName("Orc");
+
+        CombatEncounter ce = new CombatEncounter();
+        ce.setOpeningText("You encounter an orc.");
+        ce.setOpponent(orc);
+        PlayerAction runAway = new PlayerAction("Run Away");
+        PlayerAction attack = new PlayerAction("Attack");
+
+        ce.setActions(Lists.newArrayList(runAway, attack));
+        template.save(ce);
+
+        ea = new EncounterArea();
+        ea.setName("Dungeon of Infinite Testing");
+        ea.setTurnCost(1);
+        ea.setGameName(DEFAULT_TEST_ADVENTURE_AREA);
+        ea.setEncounters(Lists.newArrayList(ce));
         template.save(ea);
     }
 }
