@@ -16,6 +16,8 @@ public class Opponent implements Combatant {
 
     String name;
 
+    Range weaponDamage;
+
     public Opponent() {
 
     }
@@ -50,6 +52,16 @@ public class Opponent implements Combatant {
 
     public void setHealth(GameField health) {
         this.health = health;
+    }
+
+    @Override
+    public Range getWeaponDamage() {
+        return weaponDamage;
+    }
+
+    @Override
+    public void setWeaponDamage(Range weaponDamage) {
+        this.weaponDamage = weaponDamage;
     }
 
     public String getName() {

@@ -56,4 +56,8 @@ public abstract class Encounter {
     public abstract GameState nextStage(GameState gs);
 
     public abstract GameState processPlayerAction(GameState gs);
+
+    public abstract GameState complete(GameState gs);
+
+    public abstract boolean isComplete(GameState gs);
 }

@@ -12,4 +12,8 @@ public interface Combatant {
     GameField getHealth();
 
     void setHealth(GameField health);
+
+    Range getWeaponDamage();
+
+    void setWeaponDamage(Range weaponDamage);
 }

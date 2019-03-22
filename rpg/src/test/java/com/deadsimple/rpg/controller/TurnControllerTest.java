@@ -44,10 +44,8 @@ public class TurnControllerTest extends BaseTest {
         super.setupCombatEncounter();
         GameState newGameState = controller.takeTurn(getUser(), DEFAULT_TEST_ADVENTURE_AREA);
 
-        System.out.println(newGameState.getCurrentEncounter().getOpeningText());
-
         Assert.assertEquals(2, newGameState.getCurrentEncounter().getActions().size());
-        Assert.assertEquals(1, newGameState.getMessages().size());
+        Assert.assertEquals(3, newGameState.getMessages().size());
 
         for (PlayerAction action : newGameState.getCurrentEncounter().getActions()) {
             System.out.println(action.getName());
@@ -57,11 +55,13 @@ public class TurnControllerTest extends BaseTest {
             System.out.println(msg.getMessage());
         }
 
-        newGameState.setCurrentAction(new PlayerAction("Attack"));
-        newGameState = controller.continueTurn(getUser());
+        while(! newGameState.getCurrentEncounter().isComplete(newGameState)) {
+            newGameState.setCurrentAction(new PlayerAction("Attack"));
+            newGameState = controller.continueTurn(getUser());
 
-        for (Message msg : newGameState.getMessages()) {
-            System.out.println(msg.getMessage());
+            for (Message msg : newGameState.getMessages()) {
+                System.out.println(msg.getMessage());
+            }
         }
     }
 }

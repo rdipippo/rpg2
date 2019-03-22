@@ -53,17 +53,35 @@ public class BasicEffect implements Effect {
         try {
             Field f = GameState.class.getDeclaredField(gameStateField);
             f.setAccessible(true);
-            GameField field = (GameField)f.get(gs);
 
-            if (type.equals(BasicEffectType.LINEAR)) {
-                newValue = field.getModifiedValue() + modifier;
-            } else if (type.equals(BasicEffectType.PERCENT)) {
-                Float valueToAdd = field.getBaseValue() * (Float.valueOf(modifier) / 100);
-                newValue = (int)(field.getModifiedValue() + valueToAdd);
+            if (f.getType().isAssignableFrom(GameField.class)) {
+                GameField field = (GameField) f.get(gs);
+
+                if (type.equals(BasicEffectType.LINEAR)) {
+                    newValue = field.getModifiedValue() + modifier;
+                } else if (type.equals(BasicEffectType.PERCENT)) {
+                    Float valueToAdd = field.getBaseValue() * (Float.valueOf(modifier) / 100);
+                    newValue = (int) (field.getModifiedValue() + valueToAdd);
+                }
+
+                field.setModifiedValue(newValue);
+                f.set(gs, field);
+            } else if (f.getType().isAssignableFrom(Range.class)) {
+                Range range = (Range) f.get(gs);
+
+                if (type.equals(BasicEffectType.LINEAR)) {
+                    Integer newMinValue = range.getMinValue().getModifiedValue() + modifier;
+                    Integer newMaxValue = range.getMaxValue().getModifiedValue() + modifier;
+                    range.setNewRange(newMinValue, newMaxValue);
+                } else if (type.equals(BasicEffectType.PERCENT)) {
+                    Float minValueToAdd = range.getMinValue().getBaseValue() * (Float.valueOf(modifier) / 100);
+                    Integer newMinValue = (int) (range.getMinValue().getModifiedValue() + minValueToAdd);
+
+                    Float maxValueToAdd = range.getMaxValue().getBaseValue() * (Float.valueOf(modifier) / 100);
+                    Integer newMaxValue = (int) (range.getMaxValue().getModifiedValue() + maxValueToAdd);
+                    range.setNewRange(newMinValue, newMaxValue);
+                }
             }
-
-            field.setModifiedValue(newValue);
-            f.set(gs, field);
             return gs;
         } catch (IllegalAccessException|NoSuchFieldException e) {
             e.printStackTrace();

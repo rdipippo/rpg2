@@ -71,6 +71,7 @@ public abstract class BaseTest {
         orc.setDefense(new GameField(12));
         orc.setHealth(new GameField(15));
         orc.setName("Orc");
+        orc.setWeaponDamage(new Range(1, 5));
 
         CombatEncounter ce = new CombatEncounter();
         ce.setOpeningText("You encounter an orc.");

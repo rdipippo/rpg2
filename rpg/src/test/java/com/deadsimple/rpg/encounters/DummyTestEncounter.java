@@ -19,4 +19,14 @@ public class DummyTestEncounter extends Encounter {
     public GameState processPlayerAction(GameState gs) {
         return gs;
     }
+
+    @Override
+    public GameState complete(GameState gs) {
+        return gs;
+    }
+
+    @Override
+    public boolean isComplete(GameState gs) {
+        return false;
+    }
 }

@@ -25,4 +25,11 @@ public class GameField {
     public void setModifiedValue(int modifiedValue) {
         this.modifiedValue = modifiedValue;
     }
+
+    public void subtract(int valueToSubtract) {
+        this.modifiedValue -= valueToSubtract;
+        if (modifiedValue < 0) {
+            modifiedValue = 0;
+        }
+    }
 }

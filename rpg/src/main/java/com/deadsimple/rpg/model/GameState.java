@@ -25,6 +25,8 @@ public class GameState implements Serializable, Combatant {
 
     GameField defense;
 
+    Range weaponDamage;
+
     int turns;
 
     BasicDBObject inventory;
@@ -47,6 +49,7 @@ public class GameState implements Serializable, Combatant {
         newGS.setAttack(new GameField(10));
         newGS.setDefense(new GameField(10));
         newGS.setTurns(40);
+        newGS.setWeaponDamage(new Range(1, 4));
 
         return newGS;
     }
@@ -99,6 +102,16 @@ public class GameState implements Serializable, Combatant {
         this.health = health;
     }
 
+    @Override
+    public Range getWeaponDamage() {
+        return weaponDamage;
+    }
+
+    @Override
+    public void setWeaponDamage(Range weaponDamage) {
+        this.weaponDamage = weaponDamage;
+    }
+
     public GameField getAttack() {
         return attack;
     }
@@ -129,6 +142,10 @@ public class GameState implements Serializable, Combatant {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public void clearMessages() {
+        messages.clear();
     }
 
     public BasicDBObject getInventory() {
